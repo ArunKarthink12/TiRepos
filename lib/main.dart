@@ -61,6 +61,7 @@ class _FirstScreenState extends State<FirstScreen> {
     );
   }
 
+  var bottombarindex = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -71,6 +72,7 @@ class _FirstScreenState extends State<FirstScreen> {
                     ? controller.pagnationscreen = 1
                     : controller.pagnationscreen = 2;
                 print(controller.pagnationscreen);
+                bottombarindex = value;
               });
             },
             selectedFontSize: 0,
@@ -78,10 +80,9 @@ class _FirstScreenState extends State<FirstScreen> {
             items: [
               BottomNavigationBarItem(
                 label: '',
-                icon: Icon(Icons.contact_page_rounded),
+                icon: Icon(Icons.group),
               ),
-              BottomNavigationBarItem(
-                  label: '', icon: Icon(Icons.contact_page_rounded))
+              BottomNavigationBarItem(label: '', icon: Icon(Icons.group))
             ]),
         body: SafeArea(
           child: SizedBox(child: SingleChildScrollView(child: Obx(() {
