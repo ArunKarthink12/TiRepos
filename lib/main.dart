@@ -38,8 +38,9 @@ class _FirstScreenState extends State<FirstScreen> {
   @override
   void initState() {
     // TODO: implement initState
+    controller = Controller();
     fetchdata();
-    secondfetchdata();
+
     super.initState();
   }
 
@@ -48,20 +49,11 @@ class _FirstScreenState extends State<FirstScreen> {
       Duration.zero,
       () async {
         await controller.fetchDataController();
+        secondPageController.secondfetchDataController();
       },
     );
   }
 
-  secondfetchdata() {
-    Future.delayed(
-      Duration.zero,
-      () async {
-        await secondPageController.secondfetchDataController();
-      },
-    );
-  }
-
-  var bottombarindex = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -72,7 +64,12 @@ class _FirstScreenState extends State<FirstScreen> {
                     ? controller.pagnationscreen = 1
                     : controller.pagnationscreen = 2;
                 print(controller.pagnationscreen);
-                bottombarindex = value;
+
+                // if (controller.pagnationscreen == 2) {
+                //   Future.delayed(Duration.zero, () async {
+                //     await secondPageController.secondfetchDataController();
+                //   });
+                // }
               });
             },
             selectedFontSize: 0,
@@ -111,8 +108,7 @@ class _FirstScreenState extends State<FirstScreen> {
                   shrinkWrap: true,
                   itemBuilder: (context, index) {
                     var datasfetch = controller.dataList.first.data;
-                    var seconddatasfetch =
-                        secondPageController.dataList.first.data;
+
                     if (controller.pagnationscreen == 1) {
                       return GestureDetector(
                         onTap: () {
@@ -141,6 +137,8 @@ class _FirstScreenState extends State<FirstScreen> {
                         ),
                       );
                     } else {
+                      var seconddatasfetch =
+                          secondPageController.dataList.first.data;
                       return GestureDetector(
                         onTap: () {
                           Get.to(SecondScreen(id: seconddatasfetch[index].id));
